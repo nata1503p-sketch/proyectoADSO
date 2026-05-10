@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nueva Cuenta - Rally Traver</title>
+
+    <link rel="stylesheet" href="style/stylesheet.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="menu">ooo</div>
+
+            <ul>
+                <li><a href="paginaprincipal.html">Inicio</a></li>
+                <li><a href="#">Acerca de Nosotros</a></li>
+                <li><a href="#">Centro de Ayuda</a></li>
+            </ul>
+
+            <img src="images/logo.png" alt="Logo pequeño" class="mini-logo">
+        </nav>
+    </header>
+
+    <section class="registro-container">
+
+        <img src="images/avion1.png"
+             alt="Avión decorativo izquierdo"
+             class="avion avion-izquierda">
+
+        <img src="images/avion2.png"
+             alt="Avión decorativo derecho"
+             class="avion avion-derecha">
+
+        <div class="registro-box">
+
+            <h1>Crear Nueva Cuenta</h1>
+
+            <p>
+                ¿Ya estás registrado?
+                <a href="index.html">Inicia sesión aquí.</a>
+            </p>
+
+            <form id="formRegistro">
+
+                <label for="nombre">
+                    Nombre Completo
+                </label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre completo"
+                    required
+                >
+
+                <label for="correo">
+                    Correo Electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="correo"
+                    placeholder="Correo electrónico"
+                    required
+                >
+
+                <label for="password">
+                    CONTRASEÑA
+                </label>
+
+                <div class="password-container">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder=" "
+                        required
+                    >
+
+                    <span class="ver">👁️</span>
+
+                </div>
+
+                <label for="fecha">
+                    Fecha de Nacimiento
+                </label>
+
+                <div class="fecha-nacimiento">
+
+                    <select id="dia" required>
+
+                        <option value="">
+                            Día
+                        </option>
+
+                        <script>
+                            for (let i = 1; i <= 31; i++) {
+                                document.write(
+                                    `<option value="${i}">${i}</option>`
+                                );
+                            }
+                        </script>
+
+                    </select>
+
+                    <select id="mes" required>
+
+                        <option value="">
+                            Mes
+                        </option>
+
+                        <option>Enero</option>
+                        <option>Febrero</option>
+                        <option>Marzo</option>
+                        <option>Abril</option>
+                        <option>Mayo</option>
+                        <option>Junio</option>
+                        <option>Julio</option>
+                        <option>Agosto</option>
+                        <option>Septiembre</option>
+                        <option>Octubre</option>
+                        <option>Noviembre</option>
+                        <option>Diciembre</option>
+
+                    </select>
+
+                    <select id="anio" required>
+
+                        <option value="">
+                            Año
+                        </option>
+
+                        <script>
+                            const anioActual =
+                                new Date().getFullYear();
+
+                            for (let i = anioActual; i >= 1950; i--) {
+
+                                document.write(
+                                    `<option value="${i}">${i}</option>`
+                                );
+
+                            }
+                        </script>
+
+                    </select>
+
+                </div>
+
+                <label for="celular">
+                    Número de Celular
+                </label>
+
+                <div class="celular-input">
+
+                    <select id="codigo">
+
+                        <option value="+57">
+                            🇨🇴 +57
+                        </option>
+
+                        <option value="+1">
+                            🇺🇸 +1
+                        </option>
+
+                        <option value="+34">
+                            🇪🇸 +34
+                        </option>
+
+                        <option value="+52">
+                            🇲🇽 +52
+                        </option>
+
+                        <option value="+54">
+                            🇦🇷 +54
+                        </option>
+
+                        <option value="+51">
+                            🇵🇪 +51
+                        </option>
+
+                    </select>
+
+                    <input
+                        type="tel"
+                        id="celular"
+                        placeholder="Número de celular"
+                        required
+                    >
+
+                </div>
+
+                <div class="checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="terminos"
+                        required
+                    >
+
+                    <label for="terminos">
+                        Acepto Términos y Condiciones
+                    </label>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-registrarse"
+                >
+                    Registrarse
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        document
+        .getElementById("formRegistro")
+        .addEventListener("submit", async (e) => {
+
+            e.preventDefault();
+
+            const fechaNacimiento =
+                document.getElementById("dia").value + "/" +
+                document.getElementById("mes").value + "/" +
+                document.getElementById("anio").value;
+
+            const datos = {
+
+                nombre:
+                    document.getElementById("nombre").value,
+
+                correo:
+                    document.getElementById("correo").value,
+
+                password:
+                    document.getElementById("password").value,
+
+                fechaNacimiento: fechaNacimiento,
+
+                celular:
+                    document.getElementById("codigo").value +
+                    document.getElementById("celular").value
+            };
+
+            try {
+
+                const respuesta = await fetch(
+                    "http://localhost:3000/registro",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify(datos)
+                    }
+                );
+
+                const resultado = await respuesta.json();
+
+                alert(resultado.mensaje);
+
+            } catch (error) {
+
+                alert("Error al conectar con el servidor");
+
+                console.log(error);
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

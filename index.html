@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Rally Traver - Inicia Sesión
+    </title>
+
+    <link rel="stylesheet"
+          href="style/stylesheet.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="menu">
+                ooo
+            </div>
+
+            <ul>
+
+                <li>
+                    <a href="paginaprincipal.html">
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Acerca de Nosotros
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Centro de Ayuda
+                    </a>
+                </li>
+
+            </ul>
+
+            <img src="images/logo.png"
+                 alt="Logo pequeño"
+                 class="mini-logo">
+
+        </nav>
+
+    </header>
+
+    <main class="container">
+
+        <section class="left">
+
+            <img src="images/logo.png"
+                 alt="Logo principal"
+                 class="logo">
+
+        </section>
+
+        <section class="right">
+
+            <h2 class="titulo">
+                Ingresa
+            </h2>
+
+            <p class="subtitulo">
+                Inicia sesión para continuar
+            </p>
+
+            <!-- =========================================
+                 FORMULARIO LOGIN
+            ========================================== -->
+
+            <form id="formLogin">
+
+                <label for="usuario">
+                    CORREO ELECTRONICO
+                </label>
+
+                <input
+                    type="email"
+                    id="usuario"
+                    placeholder=" "
+                    required
+                >
+
+                <label for="password">
+                    CONTRASEÑA
+                </label>
+
+                <div class="password-container">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder=" "
+                        required
+                    >
+
+                    <span class="ver">
+                        👁️
+                    </span>
+
+                </div>
+
+                <div class="opciones">
+
+                    <label>
+                        <input type="checkbox">
+                        Recuérdame
+                    </label>
+
+                    <a href="recuperar.html">
+                        ¿Olvidaste tu Contraseña?
+                    </a>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-ingresar"
+                >
+                    Ingresar
+                </button>
+
+                <div class="divider"></div>
+
+                <button
+                    type="button"
+                    class="btn-google"
+                >
+
+                    <img src="images/google.webp"
+                         alt="Google">
+
+                    Continuar con Google
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn-facebook"
+                >
+
+                    <img src="images/facebook.webp"
+                         alt="Facebook">
+
+                    Continuar con Facebook
+
+                </button>
+
+                <p class="registrate">
+
+                    ¿No tiene cuenta?
+
+                    <a href="registrese.html">
+                        Regístrate
+                    </a>
+
+                </p>
+
+                <p class="condiciones">
+
+                    Al iniciar sesión confirmas que aceptas
+                    los <b>Términos y condiciones</b>
+                    y la <b>Política de privacidad</b>
+                    de Rally Traver.
+
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <!-- =========================================
+         SCRIPT LOGIN
+    ========================================== -->
+
+    <script>
+
+        document
+        .getElementById("formLogin")
+        .addEventListener("submit", async (e) => {
+
+            /* Evitar recarga */
+            e.preventDefault();
+
+            /* Capturar datos */
+            const datos = {
+
+                correo:
+                    document.getElementById("usuario").value,
+
+                password:
+                    document.getElementById("password").value
+
+            };
+
+            try {
+
+                /* Enviar datos al backend */
+                const respuesta = await fetch(
+
+                    "http://localhost:3000/login",
+
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify(datos)
+
+                    }
+
+                );
+
+                const resultado = await respuesta.json();
+
+                /* Login exitoso */
+                if (respuesta.ok) {
+
+                    alert(resultado.mensaje);
+
+                    /* Redirigir */
+                    window.location.href =
+                        "paginaprincipal.html";
+
+                }
+
+                /* Login incorrecto */
+                else {
+
+                    alert(resultado.mensaje);
+
+                }
+
+            } catch (error) {
+
+                console.log(error);
+
+                alert(
+                    "Error al conectar con el servidor"
+                );
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

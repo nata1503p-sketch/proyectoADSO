@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Contraseña - Rally Traver</title>
+  <link rel="stylesheet" href="style/stylesheet.css">
+</head>
+<body class="recuperar-body">
+  <header>
+    <nav>
+      <ul>
+        <li><a href="paginaprincipal.html">Inicio</a></li>
+        <li><a href="#">Acerca de Nosotros</a></li>
+        <li><a href="#">Centro de Ayuda</a></li>
+      </ul>
+      <img src="images/logo.png" alt="Logo Rally Traver" class="logo-nav">
+    </nav>
+  </header>
+
+  <main class="recuperar-container">
+    <h1>¿Has Olvidado la Contraseña?</h1>
+    <h2>Nueva Contraseña</h2>
+
+    <form id="recuperar-form">
+      <label for="email">CORREO ELECTRÓNICO</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit">Enviar</button>
+    </form>
+
+    <p id="mensaje-confirmacion" class="oculto">
+      ✅ Se ha enviado un enlace al correo electrónico para la recuperación de la cuenta. Por favor da Click en Iniciar Sesión
+    </p>
+
+     <ul>
+        <li><a href="index.html">Iniciar Sesión</a></li>
+      </ul>
+    <img src="images/avion1.png" alt="Avión decorativo" class="avion avion-izquierda">
+    <img src="images/avion2.png" alt="Avión decorativo" class="avion avion-derecha">
+  </main>
+
+  <script>
+    const form = document.getElementById('recuperar-form');
+    const mensaje = document.getElementById('mensaje-confirmacion');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      mensaje.classList.remove('oculto');
+    });
+  </script>
+</body>
+</html>
